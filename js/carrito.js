@@ -31,14 +31,13 @@ function renderCart() {
     carrito.forEach((prod, index) => {
         total += prod.precio * prod.cantidad;
         
-        // ROBUST IMAGE LOGIC
-        let imgDisplay = 'https://placehold.co/100?text=Sin+Foto'; // Default if everything fails
+        let imgDisplay = 'https://placehold.co/100?text=Sin+Foto';
 
         if (prod.imagen) {
             if (prod.imagen.startsWith('http')) {
-                imgDisplay = prod.imagen; // It's an internet URL
+                imgDisplay = prod.imagen;
             } else {
-                imgDisplay = `http://localhost:3000/uploads/${prod.imagen}`; // It's local
+                imgDisplay = `http://localhost:3000/uploads/${prod.imagen}`;
             }
         }
 
@@ -128,5 +127,4 @@ if (btnConfirmar) {
     });
 }
 
-// Initialize
 renderCart();

@@ -1,16 +1,13 @@
 // --- frontend/js/productos.js ---
 
-// Verify user is logged in
 const nombreUsuario = localStorage.getItem('clienteNombre');
 if (!nombreUsuario) window.location.href = 'index.html';
 
-// GLOBAL VARIABLES
 let todosLosProductos = [];
-let productosVisibles = []; // Products to show based on selected category
+let productosVisibles = [];
 let paginaActual = 1;
-const PRODUCTOS_POR_PAGINA = 8; // Show 6 per page
+const PRODUCTOS_POR_PAGINA = 8; 
 
-// 1. LOAD DATA
 async function cargarProductos() {
     try {
         const res = await fetch('http://localhost:3000/api/productos');
@@ -18,7 +15,6 @@ async function cargarProductos() {
         
         todosLosProductos = await res.json();
         
-        // Initially show ALL
         cambiarCategoria('todas');
         actualizarBadgeCarrito();
 
@@ -29,18 +25,15 @@ async function cargarProductos() {
     }
 }
 
-// 2. CHANGE CATEGORY (Mandatory requirement)
 window.cambiarCategoria = (categoria) => {
-    paginaActual = 1; // Return to first page
+    paginaActual = 1;
     
-    // Update title
     const titulo = document.getElementById('titulo-seccion');
     if (titulo) {
         if (categoria === 'todas') {
             productosVisibles = todosLosProductos;
             titulo.textContent = "TODOS LOS PRODUCTOS";
         } else {
-            // Filter only by selected category
             productosVisibles = todosLosProductos.filter(p => p.categoria === categoria);
             titulo.textContent = categoria.toUpperCase(); // "CAMISETAS" or "ACCESORIOS"
         }
@@ -49,14 +42,12 @@ window.cambiarCategoria = (categoria) => {
     renderizarPaginaActual();
 };
 
-// 3. PAGINATION AND RENDERING
 function renderizarPaginaActual() {
     const contenedor = document.getElementById('lista-productos');
     if (!contenedor) return;
     
     contenedor.innerHTML = '';
 
-    // Calculate which products to show (Pagination)
     const inicio = (paginaActual - 1) * PRODUCTOS_POR_PAGINA;
     const fin = inicio + PRODUCTOS_POR_PAGINA;
     const productosDeEstaPagina = productosVisibles.slice(inicio, fin);
@@ -67,7 +58,6 @@ function renderizarPaginaActual() {
         return;
     }
 
-    // Render cards
     productosDeEstaPagina.forEach((prod, index) => {
         let imagenSrc = prod.imagen;
         if (!imagenSrc.startsWith('http')) {
@@ -111,7 +101,6 @@ window.cambiarPagina = (delta) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-// --- CART ---
 function actualizarBadgeCarrito() {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
@@ -126,7 +115,6 @@ window.agregarAlCarrito = (id, nombre, precio, imagen) => {
     if (existe) {
         existe.cantidad++;
     } else {
-        // Save image in cart object
         carrito.push({ id, nombre, precio, imagen, cantidad: 1 });
     }
     
@@ -135,5 +123,4 @@ window.agregarAlCarrito = (id, nombre, precio, imagen) => {
     alert(`✅ ${nombre} agregado!`);
 };
 
-// Start
 cargarProductos();
