@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito | THE JERSEY LAB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=30">
+    
+    <style>
+        /* Estilos Extra Carrito */
+        .cart-page-wrapper { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .cart-title { font-size: 2rem; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; color: var(--text-main); }
+        
+        .cart-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        
+        .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--border-color); }
+        .cart-item-info { display: flex; align-items: center; gap: 20px; }
+        .cart-img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color); background: #fff; }
+        
+        .cart-name { font-family: 'Oswald'; font-size: 1.1rem; color: var(--text-main); margin: 0; }
+        .cart-price { font-family: 'Poppins'; font-weight: bold; color: var(--text-secondary); }
+        
+        .qty-box { display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; }
+        .qty-btn { background: transparent; border: none; width: 30px; height: 30px; cursor: pointer; color: var(--text-main); transition: 0.2s; display:flex; align-items:center; justify-content:center;}
+        .qty-btn:hover { background: var(--border-color); }
+        .qty-val { width: 30px; text-align: center; font-size: 0.9rem; color: var(--text-main); }
+        
+        .btn-remove { background: transparent; border: none; color: #ff4842; cursor: pointer; margin-left: 20px; font-size: 1.1rem; }
+
+        .cart-summary { background: var(--card-bg); padding: 30px; border: 1px solid var(--border-color); border-radius: 12px; position: sticky; top: 100px; height: fit-content; }
+        .cart-summary h3 { color: var(--text-main); font-family:'Oswald'; margin-bottom:20px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: var(--text-secondary); }
+        .total-row { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color); font-family: 'Oswald'; font-size: 1.5rem; font-weight: bold; color: var(--text-main); }
+        
+        .checkout-btn { width: 100%; padding: 15px; background: var(--accent-color); color: var(--bg-body); border: none; font-weight: bold; font-family: 'Oswald'; letter-spacing: 1px; margin-top: 20px; cursor: pointer; text-transform: uppercase; }
+        .empty-cart { text-align: center; padding: 50px; }
+        .empty-icon { font-size: 4rem; color: var(--text-secondary); margin-bottom: 20px; }
+        
+        @media (max-width: 768px) { .cart-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">THE JERSEY <span>LAB</span></div>
+        <nav class="nav-links">
+            <a href="productos.html">← SEGUIR COMPRANDO</a>
+        </nav>
+        <div class="user-actions">
+            <button id="btnTema" class="icon-btn" title="Cambiar Tema">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="cart-page-wrapper">
+        <h1 class="cart-title">TU CARRITO</h1>
+
+        <div class="cart-layout">
+            <div id="carrito-lista">
+                </div>
+
+            <div class="cart-summary" id="resumen-panel" style="display: none;">
+                <h3>RESUMEN</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío</span>
+                    <span style="color: #00e676;">Gratis</span>
+                </div>
+                <div class="total-row">
+                    <span>TOTAL</span>
+                    <span id="cart-total">$0</span>
+                </div>
+
+                <button id="btn-confirmar" class="checkout-btn">FINALIZAR COMPRA</button>
+                <button id="btn-vaciar" style="background:transparent; border:none; color:var(--text-secondary); width:100%; margin-top:10px; cursor:pointer; font-size:0.8rem;">VACIAR CARRITO</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 THE JERSEY LAB</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/carrito.js"></script>
+</body>
+</html>

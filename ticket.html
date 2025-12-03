@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket de Compra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css?v=10">
+    <style>
+        /* Estilos específicos de ticket */
+        .ticket-container {
+            background: white;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+        .ticket-header { border-bottom: 2px dashed #333; padding-bottom: 20px; margin-bottom: 20px; }
+        .ticket-header h2 { font-family: 'Oswald', sans-serif; font-size: 2rem; margin: 0; }
+        .ticket-info { text-align: left; margin-bottom: 20px; color: #666; font-size: 0.9rem; }
+        .ticket-items { width: 100%; margin-bottom: 20px; text-align: left; }
+        .ticket-items th { border-bottom: 1px solid #ddd; padding: 5px; }
+        .ticket-items td { padding: 8px 5px; border-bottom: 1px solid #eee; }
+        .ticket-total { font-size: 1.5rem; font-weight: bold; font-family: 'Oswald', sans-serif; margin: 20px 0; border-top: 2px solid #333; padding-top: 10px; }
+        
+        /* Botones al final */
+        .acciones { display: flex; gap: 10px; justify-content: center; margin-top: 30px; }
+        .btn-salir { background-color: #666; }
+        
+        /* Para imprimir solo el ticket */
+        @media print {
+            body * { visibility: hidden; }
+            .ticket-container, .ticket-container * { visibility: visible; }
+            .ticket-container { position: absolute; left: 0; top: 0; box-shadow: none; border: none; width: 100%; }
+            .acciones { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ticket-container">
+        <div class="ticket-header">
+            <h2>¡Gracias por tu compra!</h2>
+            <p>Tienda de Fútbol 2024</p>
+        </div>
+
+        <div class="ticket-info">
+            <p><strong>Cliente:</strong> <span id="t-cliente">...</span></p>
+            <p><strong>Fecha:</strong> <span id="t-fecha">...</span></p>
+            <p><strong>Nro. Ticket:</strong> #<span id="t-id">...</span></p>
+        </div>
+
+        <table class="ticket-items">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cant.</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="t-lista">
+                </tbody>
+        </table>
+
+        <div class="ticket-total">
+            TOTAL: $<span id="t-total">0</span>
+        </div>
+
+        <div class="acciones">
+            <button onclick="window.print()">📄 Descargar PDF</button>
+            <button class="btn-salir" onclick="salir()">🚪 Salir / Inicio</button>
+        </div>
+    </div>
+
+    <script>
+        // Lógica incrustada para simplicidad
+        const ticket = JSON.parse(localStorage.getItem('ultimoTicket'));
+
+        if (!ticket) {
+            alert("No hay ticket para mostrar.");
+            window.location.href = 'index.html';
+        } else {
+            // Llenar datos
+            document.getElementById('t-cliente').textContent = ticket.usuario;
+            document.getElementById('t-id').textContent = ticket.id;
+            document.getElementById('t-fecha').textContent = new Date(ticket.fecha).toLocaleString();
+            document.getElementById('t-total').textContent = ticket.total;
+
+            // Llenar tabla
+            const lista = document.getElementById('t-lista');
+            ticket.items.forEach(item => {
+                lista.innerHTML += `
+                    <tr>
+                        <td>${item.nombre}</td>
+                        <td>x${item.cantidad}</td>
+                        <td>$${item.precio * item.cantidad}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function salir() {
+            localStorage.clear(); // Borramos todo para el prox cliente
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

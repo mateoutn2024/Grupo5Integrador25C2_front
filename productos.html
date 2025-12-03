@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo | THE JERSEY LAB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=30">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            THE JERSEY <span class="logo-accent">LAB</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#" onclick="cambiarCategoria('todas')" class="active">HOME</a>
+            <!-- <a href="#">NEW DROPS</a>-->
+            <!-- <a href="#">SALE</a>-->
+        </nav>
+
+        <div class="user-actions">
+            <span id="saludo" class="user-name">Hola! <span class="user-name-actual">Invitado</span></span>
+            
+            <button id="btnTema" class="icon-btn" title="Cambiar Tema">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <a href="carrito.html" class="cart-btn" title="Ver Carrito">
+                <i class="fas fa-shopping-cart"></i> 
+                <span id="cart-badge" class="badge">0</span>
+            </a>
+            
+            <button onclick="salir()" class="logout-btn" title="Cerrar Sesión">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="shop-layout">
+        <aside class="sidebar">
+            <div class="filter-group">
+                <h3>COLECCIONES</h3>
+                <ul class="filter-list">
+                    <li><a href="#" onclick="cambiarCategoria('todas')">Ver Todo</a></li>
+                    <li><a href="#" onclick="cambiarCategoria('Camisetas')">Camisetas</a></li>
+                    <li><a href="#" onclick="cambiarCategoria('Accesorios')">Accesorios</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="category-header">
+                <h2 id="titulo-seccion">TODOS LOS PRODUCTOS</h2>
+            </div>
+
+            <div id="lista-productos" class="grid-productos">
+                <p>Cargando...</p>
+            </div>
+            
+            <div class="pagination-container">
+                <button id="btn-anterior" onclick="cambiarPagina(-1)">ANTERIOR</button>
+                <span id="info-pagina">1</span>
+                <button id="btn-siguiente" onclick="cambiarPagina(1)">SIGUIENTE</button>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 THE JERSEY LAB - TP PROGRAMACIÓN UTN</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/productos.js?v=30"></script>
+</body>
+</html>
