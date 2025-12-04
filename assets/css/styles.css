@@ -40,6 +40,12 @@ body {
     color: var(--text-main);
     min-height: 100vh;
     transition: background 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-layout, .cart-page-wrapper, .welcome-card {
+    flex: 1;
 }
 
 /* FUENTES */
